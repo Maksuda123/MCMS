@@ -4,44 +4,6 @@
 @tailwind utilities;
 
 
-/* styles.css */
-.column-slno {
-    background-color: #fed7d7;
-    /* Tailwind's red-200 color */
-}
 
-.column-rollno {
-    background-color: #fed7d7;
-}
 
-.column-name {
-    background-color: #fed7d7;
-}
 
-.column-merit {
-    background-color: #fed7d7;
-}
-
-.column-sex {
-    background-color: #fed7d7;
-}
-
-.column-quota {
-    background-color: #fed7d7;
-}
-
-.column-test {
-    background-color: #fed7d7;
-}
-
-.column-score {
-    background-color: #fed7d7;
-}
-
-.column-status {
-    background-color: #fed7d7;
-}
-
-.column-edit {
-    background-color: #fed7d7;
-}
