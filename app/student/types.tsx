@@ -1,13 +1,17 @@
 // types.ts
 
 export interface StudentData {
-  slNo: number;
+  slNo: string;
   rollNo: string;
   name: string;
   sex: string;
-  merit: number;
+  merit: string;
   quota: string;
-  test: number;
-  mScore: number;
+  test: string;
+  mScore: string;
   status: string;
 }
+
+
+
+

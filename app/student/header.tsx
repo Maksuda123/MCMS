@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import AddButton from "./addbutton";
 import Image from "next/image";
 import PopupForm from "./popupform";
+import AddMonyeButton from "../payment/moneyadd";
 import { StudentData } from "./types";
 
 interface HeaderProps{
@@ -27,17 +28,7 @@ const Header: React.FC<HeaderProps> = ({ addStudent }) => {
             <div onClick={toggleFormVisibility}>
               <AddButton />
             </div>
-            <button className="flex items-center justify-center px-2 py-2 font-bold text-black bg-add-button rounded-md hover:bg-gradient-to-br hover:from-[#caa98d] hover:to-[#90b6ae]">
-              <span className="text-plus-icon m-1">
-                <Image
-                  src="/group 66 (2).svg"
-                  alt="Money Icon"
-                  width={20}
-                  height={20}
-                />
-              </span>
-              Money Receipt
-            </button>
+           {/* <AddMonyeButton/> */}
           </div>
           <div className="flex items-center space-x-2">
             <span>Show</span>
@@ -57,13 +48,8 @@ const Header: React.FC<HeaderProps> = ({ addStudent }) => {
             <span>Entries</span>
           </div>
         </div>
-
-        <h1 className="text-xl font-bold text-center flex-grow">
-          Selected Students List
-        </h1>
-
         <div className="flex items-center space-x-4">
-          <div className="relative w-10 h-10">
+          {/* <div className="relative w-10 h-10">
             <img
               src="/Notification.svg"
               alt="Notification"
@@ -73,10 +59,10 @@ const Header: React.FC<HeaderProps> = ({ addStudent }) => {
           </div>
           <div className="relative w-10 h-10 rounded-lg p-1">
             <img src="/Setting.svg" alt="Settings" className="w-full h-full" />
-          </div>
-          <div className="relative w-10 h-10">
+          </div> */}
+          {/* <div className="relative w-10 h-10">
             <img src="/menu.svg" alt="Menu" className="w-full h-full" />
-          </div>
+          </div> */}
         </div>
       </div>
 

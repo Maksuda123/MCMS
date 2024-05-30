@@ -8,14 +8,14 @@ interface PopupFormProps {
 
 const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
   const [formData, setFormData] = useState<StudentData>({
-    slNo: 0,
+    slNo: "",
     rollNo: "",
     name: "",
     sex: "",
-    merit: 0,
+    merit: "",
     quota: "",
-    test: 0,
-    mScore: 0,
+    test: "",
+    mScore: "",
     status: "",
   });
 
@@ -39,13 +39,7 @@ const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]:
-        name === "slNo" ||
-        name === "merit" ||
-        name === "test" ||
-        name === "mScore"
-          ? Number(value)
-          : value,
+      [name]: value,
     });
   };
 
@@ -57,14 +51,14 @@ const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
 
   const handleReset = () => {
     setFormData({
-      slNo: 0,
+      slNo: "",
       rollNo: "",
       name: "",
       sex: "",
-      merit: 0,
+      merit: "",
       quota: "",
-      test: 0,
-      mScore: 0,
+      test: "",
+      mScore: "",
       status: "",
     });
   };
@@ -73,55 +67,56 @@ const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-white p-8 rounded-lg shadow-lg w-4/5 max-w-3xl">
         <div className="flex justify-between items-center p-2 mb-6 bg-stone-200">
-          <h2 className="text-2xl font-bold">Selected Student(add)</h2>
+          <h2 className="text-2xl font-bold">Selected Student (Add)</h2>
           <p className="text-sm">{currentDateTime}</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex flex-col">
               <label className="block text-sm font-medium text-gray-700">
-                Sl.No:
+                Sl.No: <span className="text-red-500">*</span>
               </label>
               <input
-                type="number"
+                type="text"
                 name="slNo"
                 value={formData.slNo}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm appearance-none"
                 required
               />
             </div>
             <div className="flex flex-col">
               <label className="block text-sm font-medium text-gray-700">
-                Roll No:
+                Roll No: <span className="text-red-500">*</span>
               </label>
               <input
-              id="roll"
+                id="roll"
                 type="text"
                 name="rollNo"
                 placeholder="Roll No"
                 value={formData.rollNo}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm appearance-none"
                 required
               />
             </div>
             <div className="flex flex-col">
               <label className="block text-sm font-medium text-gray-700">
-                Full Name:
+                Full Name: <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 name="name"
+                placeholder="Full Name"
                 value={formData.name}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm appearance-none"
                 required
               />
             </div>
             <div className="flex flex-col">
               <label className="block text-sm font-medium text-gray-700">
-                Sex:
+                Gender: <span className="text-red-500">*</span>
               </label>
               <div className="flex space-x-4 mt-1">
                 <label className="inline-flex items-center">
@@ -161,40 +156,40 @@ const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
             </div>
             <div className="flex flex-col">
               <label className="block text-sm font-medium text-gray-700">
-                Merit:
+                Merit: <span className="text-red-500">*</span>
               </label>
               <input
-                type="number"
+                type="text"
                 name="merit"
                 value={formData.merit}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm appearance-none"
                 required
               />
             </div>
             <div className="flex flex-col">
               <label className="block text-sm font-medium text-gray-700">
-                Test:
+                Test: <span className="text-red-500">*</span>
               </label>
               <input
-                type="number"
+                type="text"
                 name="test"
                 value={formData.test}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm appearance-none"
                 required
               />
             </div>
             <div className="flex flex-col">
               <label className="block text-sm font-medium text-gray-700">
-                M. Score:
+                M. Score: <span className="text-red-500">*</span>
               </label>
               <input
-                type="number"
+                type="text"
                 name="mScore"
                 value={formData.mScore}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm appearance-none"
                 required
               />
             </div>
@@ -207,13 +202,25 @@ const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
                 value={formData.quota}
                 onChange={handleChange}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                required
               >
                 <option value="">Select</option>
                 <option value="General">General</option>
                 <option value="Freedom Fighter">Freedom Fighter</option>
-                <option value="SC">SC</option>
-                <option value="ST">ST</option>
+              </select>
+            </div>
+          <div className="flex flex-col">
+              <label className="block text-sm font-medium text-gray-700">
+                Status:
+              </label>
+              <select
+                name="status"
+                value={formData.status}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+              >
+                <option value="">Select</option>
+                <option value="General">Enrolled</option>
+                <option value="Freedom Fighter">Pending</option>
               </select>
             </div>
           </div>
