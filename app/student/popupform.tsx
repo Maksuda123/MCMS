@@ -4,21 +4,17 @@ import { StudentData } from "./types";
 interface PopupFormProps {
   onSubmit: (formData: StudentData) => void;
   onClose: () => void;
+  formData: StudentData;
+  isEditMode: boolean;
 }
 
-const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
-  const [formData, setFormData] = useState<StudentData>({
-    slNo: "",
-    rollNo: "",
-    name: "",
-    sex: "",
-    merit: "",
-    quota: "",
-    test: "",
-    mScore: "",
-    status: "",
-  });
-
+const PopupForm: React.FC<PopupFormProps> = ({
+  onSubmit,
+  onClose,
+  formData,
+  isEditMode,
+}) => {
+  const [formState, setFormState] = useState<StudentData>(formData);
   const [currentDateTime, setCurrentDateTime] = useState<string>("");
 
   useEffect(() => {
@@ -33,24 +29,24 @@ const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
     return () => clearInterval(intervalId);
   }, []);
 
+  useEffect(() => {
+    setFormState(formData);
+  }, [formData]);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(formData);
-    onClose();
+    onSubmit(formState);
   };
 
   const handleReset = () => {
-    setFormData({
+    setFormState({
       slNo: "",
       rollNo: "",
       name: "",
@@ -67,7 +63,9 @@ const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-white p-8 rounded-lg shadow-lg w-4/5 max-w-3xl">
         <div className="flex justify-between items-center p-2 mb-6 bg-stone-200">
-          <h2 className="text-2xl font-bold">Selected Student (Add)</h2>
+          <h2 className="text-xl font-bold mb-4">
+            {isEditMode ? "Update Student" : "Add Student"}
+          </h2>
           <p className="text-sm">{currentDateTime}</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -79,7 +77,8 @@ const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
               <input
                 type="text"
                 name="slNo"
-                value={formData.slNo}
+                value={formState.slNo}
+                placeholder="Sl No"
                 onChange={handleChange}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm appearance-none"
                 required
@@ -94,7 +93,7 @@ const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
                 type="text"
                 name="rollNo"
                 placeholder="Roll No"
-                value={formData.rollNo}
+                value={formState.rollNo}
                 onChange={handleChange}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm appearance-none"
                 required
@@ -108,7 +107,7 @@ const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
                 type="text"
                 name="name"
                 placeholder="Full Name"
-                value={formData.name}
+                value={formState.name}
                 onChange={handleChange}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm appearance-none"
                 required
@@ -116,7 +115,7 @@ const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
             </div>
             <div className="flex flex-col">
               <label className="block text-sm font-medium text-gray-700">
-                Gender: <span className="text-red-500">*</span>
+                Gender:
               </label>
               <div className="flex space-x-4 mt-1">
                 <label className="inline-flex items-center">
@@ -124,7 +123,7 @@ const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
                     type="radio"
                     name="sex"
                     value="Male"
-                    checked={formData.sex === "Male"}
+                    checked={formState.sex === "Male"}
                     onChange={handleChange}
                     className="form-radio"
                   />
@@ -135,7 +134,7 @@ const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
                     type="radio"
                     name="sex"
                     value="Female"
-                    checked={formData.sex === "Female"}
+                    checked={formState.sex === "Female"}
                     onChange={handleChange}
                     className="form-radio"
                   />
@@ -146,7 +145,7 @@ const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
                     type="radio"
                     name="sex"
                     value="Others"
-                    checked={formData.sex === "Others"}
+                    checked={formState.sex === "Others"}
                     onChange={handleChange}
                     className="form-radio"
                   />
@@ -161,7 +160,7 @@ const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
               <input
                 type="text"
                 name="merit"
-                value={formData.merit}
+                value={formState.merit}
                 onChange={handleChange}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm appearance-none"
                 required
@@ -169,28 +168,26 @@ const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
             </div>
             <div className="flex flex-col">
               <label className="block text-sm font-medium text-gray-700">
-                Test: <span className="text-red-500">*</span>
+                Test:
               </label>
               <input
                 type="text"
                 name="test"
-                value={formData.test}
+                value={formState.test}
                 onChange={handleChange}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm appearance-none"
-                required
               />
             </div>
             <div className="flex flex-col">
               <label className="block text-sm font-medium text-gray-700">
-                M. Score: <span className="text-red-500">*</span>
+                M. Score:
               </label>
               <input
                 type="text"
                 name="mScore"
-                value={formData.mScore}
+                value={formState.mScore}
                 onChange={handleChange}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm appearance-none"
-                required
               />
             </div>
             <div className="flex flex-col">
@@ -199,7 +196,7 @@ const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
               </label>
               <select
                 name="quota"
-                value={formData.quota}
+                value={formState.quota}
                 onChange={handleChange}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
               >
@@ -208,19 +205,19 @@ const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
                 <option value="Freedom Fighter">Freedom Fighter</option>
               </select>
             </div>
-          <div className="flex flex-col">
+            <div className="flex flex-col">
               <label className="block text-sm font-medium text-gray-700">
-                Status:
+                Status: <span className="text-red-500">*</span>
               </label>
               <select
                 name="status"
-                value={formData.status}
+                value={formState.status}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm required"
               >
                 <option value="">Select</option>
-                <option value="General">Enrolled</option>
-                <option value="Freedom Fighter">Pending</option>
+                <option value="Enrolled">Enrolled</option>
+                <option value="Pending">Pending</option>
               </select>
             </div>
           </div>
@@ -243,7 +240,7 @@ const PopupForm: React.FC<PopupFormProps> = ({ onSubmit, onClose }) => {
               type="submit"
               className="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600"
             >
-              Submit
+              {isEditMode ? "Update Student" : "Add Student"}
             </button>
           </div>
         </form>

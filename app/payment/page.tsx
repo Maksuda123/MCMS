@@ -5,7 +5,7 @@ import Sidebar from '../student/sidebar';
 const page = () => {
   return (
     <div className="flex">
-      <Sidebar />
+      <Sidebar/>
       <div className="flex-1">
       <MoneyAdd/>
       </div>

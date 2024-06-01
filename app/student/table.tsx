@@ -5,7 +5,7 @@ import { StudentData } from "./types";
 interface TableProps {
   students: StudentData[];
   onEdit: (student: StudentData) => void;
-  onDelete: (student: StudentData) => void;
+  onDelete: (slNo: string) => void;
 }
 
 const Table: React.FC<TableProps> = ({ students, onEdit, onDelete }) => {
@@ -75,7 +75,7 @@ const Table: React.FC<TableProps> = ({ students, onEdit, onDelete }) => {
                   <FaEdit />
                 </button>
                 <button
-                  onClick={() => onDelete(student)}
+                  onClick={() => onDelete(student.slNo)}
                   className="text-red-500 hover:text-red-700"
                 >
                   <FaTrash />

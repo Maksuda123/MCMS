@@ -14,7 +14,7 @@ const Sidebar = () => {
     { name: "Payment details", href: "/payment" },
   ];
 
-  const handleLinkClick = (linkName:any, href:any) => {
+  const handleLinkClick = (linkName: any, href: any) => {
     setActiveLink(linkName);
     router.push(href); // Use router.push for navigation
   };
