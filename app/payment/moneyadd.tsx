@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PopupForm from "./popupform";
 
 interface FormData {
@@ -17,11 +17,23 @@ export default function AddMoneyButton() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [feeCollection, setFeeCollection] = useState<FormData[]>([]);
 
+  useEffect(() => {
+    // Retrieve data from local storage on component mount
+    const savedData = localStorage.getItem("feeCollection");
+    if (savedData) {
+      setFeeCollection(JSON.parse(savedData));
+    }
+  }, []);
+
   const openPopup = () => setIsPopupOpen(true);
   const closePopup = () => setIsPopupOpen(false);
 
   const handleFormSubmit = (formData: FormData) => {
-    setFeeCollection((prevCollection) => [...prevCollection, formData]);
+    const updatedCollection = [...feeCollection, formData];
+    setFeeCollection(updatedCollection);
+
+    // Save updated collection to local storage
+    localStorage.setItem("feeCollection", JSON.stringify(updatedCollection));
   };
 
   const calculateTotal = (key: keyof FormData) => {
@@ -29,7 +41,6 @@ export default function AddMoneyButton() {
       (sum, item) => sum + parseFloat(item[key] || "0"),
       0
     );
-    // return feeCollection.reduce((sum, item) => sum + item[key], 0);   //for  number type value
   };
 
   const totalAmountSum = calculateTotal("amount");

@@ -56,6 +56,7 @@ const PopupForm: React.FC<PopupFormProps> = ({
       test: "",
       mScore: "",
       status: "",
+      date: "",
     });
   };
 
@@ -219,6 +220,18 @@ const PopupForm: React.FC<PopupFormProps> = ({
                 <option value="Enrolled">Enrolled</option>
                 <option value="Pending">Pending</option>
               </select>
+            </div>
+            <div className="flex flex-col">
+              <label className="block text-sm font-medium text-gray-700">
+                Date:
+              </label>
+              <input
+                type="date"
+                name="date"
+                value={formState.date}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm appearance-none"
+              />
             </div>
           </div>
           <div className="flex justify-between mt-6">

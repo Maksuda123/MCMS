@@ -10,6 +10,7 @@ export interface StudentData {
   test: string;
   mScore: string;
   status: string;
+  date: string;
 }
 
 

@@ -1,20 +1,29 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 const Sidebar = () => {
-  const [activeLink, setActiveLink] = useState("Admitted Student");
+  const [activeLink, setActiveLink] = useState("");
   const router = useRouter();
+  const pathname = usePathname();
 
   const links = [
     { name: "Admitted Student", href: "/student" },
-    { name: "New Student", href: "/newstudent" },
-    { name: "Old Student", href: "/oldstudent" },
+    { name: "New Student", href: "/newStudent" },
+    { name: "Old Student", href: "/oldStudent" },
     { name: "Payment details", href: "/payment" },
   ];
 
-  const handleLinkClick = (linkName: any, href: any) => {
+  useEffect(() => {
+    // Set the active link based on the current pathname
+    const currentLink = links.find(link => link.href === pathname);
+    if (currentLink) {
+      setActiveLink(currentLink.name);
+    }
+  }, [pathname]);
+
+  const handleLinkClick = (linkName: string, href: string) => {
     setActiveLink(linkName);
     router.push(href); // Use router.push for navigation
   };

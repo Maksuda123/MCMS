@@ -27,6 +27,7 @@ const Table: React.FC<TableProps> = ({ students, onEdit, onDelete }) => {
               <th className="px-4 py-2">Test</th>
               <th className="px-4 py-2">M. Score</th>
               <th className="px-4 py-2">Status</th>
+              <th className="px-4 py-2">Date</th>
               <th className="px-4 py-2">Action</th>
             </tr>
           </thead>
@@ -50,6 +51,7 @@ const Table: React.FC<TableProps> = ({ students, onEdit, onDelete }) => {
             <th className="px-4 py-2">Test</th>
             <th className="px-4 py-2">M. Score</th>
             <th className="px-4 py-2">Status</th>
+            <th className="px-4 py-2">Date</th>
             <th className="px-4 py-2">Action</th>
           </tr>
         </thead>
@@ -60,13 +62,20 @@ const Table: React.FC<TableProps> = ({ students, onEdit, onDelete }) => {
               <td className="border px-4 py-2">{student.rollNo}</td>
               <td className="border px-4 py-2">{student.name}</td>
               <td className="border px-4 py-2">
-                {student.sex === "Male" ? <FaMale className="text-blue-500" /> : student.sex === "Female" ? <FaFemale className="text-pink-500" /> : student.sex}
+                {student.sex === "Male" ? (
+                  <FaMale className="text-blue-500" />
+                ) : student.sex === "Female" ? (
+                  <FaFemale className="text-pink-500" />
+                ) : (
+                  student.sex
+                )}
               </td>
               <td className="border px-4 py-2">{student.merit}</td>
               <td className="border px-4 py-2">{student.quota}</td>
               <td className="border px-4 py-2">{student.test}</td>
               <td className="border px-4 py-2">{student.mScore}</td>
               <td className="border px-4 py-2">{student.status}</td>
+              <td className="border px-4 py-2">{student.date}</td>
               <td className="border px-4 py-2">
                 <button
                   onClick={() => onEdit(student)}

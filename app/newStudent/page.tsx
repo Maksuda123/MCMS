@@ -1,13 +1,15 @@
+// NewStudent.tsx
 "use client";
 import React, { useState, useEffect } from "react";
-import Header from "./header";
-import Table from "./table";
-import { StudentData } from "./types";
-import Sidebar from "./sidebar";
+import Header from "../student/header";
+import Table from "../student/table";
+import { StudentData } from "../student/types";
+import Sidebar from "../student/sidebar";
 
-const Student: React.FC = () => {
+const NewStudent: React.FC = () => {
   const [students, setStudents] = useState<StudentData[]>([]);
   const [editStudent, setEditStudent] = useState<StudentData | null>(null);
+  const newStudentThreshold = 30; // Define threshold for new students in days
 
   useEffect(() => {
     const storedStudents = localStorage.getItem("students");
@@ -40,6 +42,16 @@ const Student: React.FC = () => {
     localStorage.setItem("students", JSON.stringify(updatedStudents));
   };
 
+  const isNewStudent = (date: string) => {
+    const studentDate = new Date(date);
+    const currentDate = new Date();
+    const differenceInTime = currentDate.getTime() - studentDate.getTime();
+    const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+    return differenceInDays <= newStudentThreshold;
+  };
+
+  const newStudents = students.filter((student) => isNewStudent(student.date));
+
   return (
     <div className="flex">
       <Sidebar />
@@ -50,7 +62,7 @@ const Student: React.FC = () => {
           isEditMode={!!editStudent}
         />
         <Table
-          students={students}
+          students={newStudents}
           onEdit={handleEdit}
           onDelete={handleDelete}
         />
@@ -59,4 +71,4 @@ const Student: React.FC = () => {
   );
 };
 
-export default Student;
+export default NewStudent;

@@ -1,4 +1,3 @@
-// components/LoginForm.tsx
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -19,9 +18,19 @@ export default function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add authentication logic here
-    // On successful login:
-    router.push("/student");
+    if (isLogin) {
+      // Add authentication logic here for login
+      // On successful login:
+      router.push("/student");
+    } else {
+      // Add registration logic here
+      // Simulate successful registration
+      setTimeout(() => {
+        // After registration, redirect to login page
+        setIsLogin(true);
+        alert("Registration successful! Please log in.");
+      }, 1000); // Simulate server response time
+    }
   };
 
   return (
