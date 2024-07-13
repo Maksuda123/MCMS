@@ -1,4 +1,4 @@
-APPLication URL: https://medical-collage-management.netlify.app/
+Application URL: https://medical-collage-management.netlify.app/
 
 
 ## Getting Started
